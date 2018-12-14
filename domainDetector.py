@@ -51,6 +51,23 @@ fnum=E[1]
 fvec=V[:,1]
 p.plot([i for i in range(fvec.shape[0])],fvec)
 p.show()
+
+signvec=[0. for i in range(len(A))]
+for i in range(len(A)):
+    if fvec[i,0]>0.:
+        signvec[i]=1.
+
+def giniIndex(x):
+    total=0.
+    for array in x:
+        total+=1-(sum(array)/len(array))**2-(1-(sum(array)/len(array)))**2
+    return total
+
+basegini=giniIndex([signvec])
+ginis=[giniIndex([signvec[:i],signvec[i:]]) for i in range(1,len(A)-1)]
+print(basegini-min(ginis))
+print(ginis.index(min(ginis)))
+'''
 smoothing=30
 change=[False for i in range(len(A))]
 positive=True
@@ -79,4 +96,4 @@ boundaries=[(inds[i],i) for i in range(len(A)) if change[i]]
 output=[str(ind[1]) for ind in boundaries]
 print(",".join(output))
 #print("Domain residue boundaries:")
-
+'''

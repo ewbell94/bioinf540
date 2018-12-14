@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-open(my $infile,"<test.list");
+open(my $infile,"<threadomdataset/test-all.list");
 my $done = `cat donefile`;
 while(my $line=<$infile>){
     my @parts=split(' ',$line);
