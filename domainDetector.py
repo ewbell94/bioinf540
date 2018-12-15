@@ -1,5 +1,5 @@
 import numpy as np
-import matplotlib.pyplot as p
+#import matplotlib.pyplot as p
 from sys import argv
 from math import sqrt
 from copy import deepcopy
@@ -49,8 +49,8 @@ E,V=np.linalg.eig(L)
 #p.show()
 fnum=E[1]
 fvec=V[:,1]
-p.plot([i for i in range(fvec.shape[0])],fvec)
-p.show()
+#p.plot([i for i in range(fvec.shape[0])],fvec)
+#p.show()
 
 signvec=[0. for i in range(len(A))]
 for i in range(len(A)):
@@ -65,7 +65,7 @@ def giniIndex(x):
 
 basegini=giniIndex([signvec])
 ginis=[giniIndex([signvec[:i],signvec[i:]]) for i in range(1,len(A)-1)]
-print(basegini-min(ginis))
+#print(basegini-min(ginis))
 print(ginis.index(min(ginis)))
 '''
 smoothing=30
