@@ -1,11 +1,14 @@
 import numpy as np
-#import matplotlib.pyplot as p
+import matplotlib.pyplot as p
 from sys import argv
 from math import sqrt
 from copy import deepcopy
 from scipy.linalg import fractional_matrix_power
 from scipy.sparse.csgraph import laplacian
-             
+
+plot=False
+if len(argv)>2 and argv[2]=="-p":
+    plot=True
 f=open(argv[1])
 
 #Read in data from the PDB file
@@ -36,7 +39,6 @@ A=np.asmatrix(A)
 D=np.asmatrix(D)
 #L=D-A
 L=np.asmatrix(np.eye(len(A)))-fractional_matrix_power(D,-0.5)*A*fractional_matrix_power(D,-0.5)
-#L=np.asmatrix(laplacian(A,normed=True))
 #plotmat=deepcopy(L)
 #for i in range(len(A)):
     #plotmat[i,i]=0.
@@ -45,12 +47,15 @@ L=np.asmatrix(np.eye(len(A)))-fractional_matrix_power(D,-0.5)*A*fractional_matri
 
 #Calculate fiedler vector, calculate domain divisons from it
 E,V=np.linalg.eig(L)
-#p.plot([i for i in range(E.shape[0])],E)
-#p.show()
-fnum=E[1]
-fvec=V[:,1]
-#p.plot([i for i in range(fvec.shape[0])],fvec)
-#p.show()
+E[np.argmin(E)]=1.0 #set the zero eigenvalue to 1 
+n=np.argmin(E) #grab the index of the second smallest eigenvalue
+fnum=E[n]
+fvec=V[:,n]
+if plot:
+    p.plot([i for i in range(E.shape[0])],E)
+    p.show()
+    p.plot([i for i in range(fvec.shape[0])],fvec)
+    p.show()
 
 signvec=[0. for i in range(len(A))]
 for i in range(len(A)):
@@ -65,8 +70,7 @@ def giniIndex(x):
 
 basegini=giniIndex([signvec])
 ginis=[giniIndex([signvec[:i],signvec[i:]]) for i in range(1,len(A)-1)]
-#print(basegini-min(ginis))
-print(ginis.index(min(ginis)))
+print(len(A),fnum,ginis.index(min(ginis))+1)
 '''
 smoothing=30
 change=[False for i in range(len(A))]
