@@ -12,13 +12,23 @@ for line in f:
     errors.append(abs(float(parts[3])-float(parts[4]))/int(parts[1]))
 
 print(sum(errors)/len(errors))
+p.title('Relative Error VS. Protein Length')
+p.ylabel('Relative Error')
+p.xlabel('Protein Length(aa)')
 p.scatter(lengths,errors)
 print(pearsonr(lengths,errors)[0])
 p.show()
+
+p.title('Relative Error VS. Fiedler Number')
+p.ylabel('Relative Error')
+p.xlabel('Fiedler Number')
 p.scatter(fnums,errors)
 print(pearsonr(fnums,errors)[0])
 p.show()
+
+p.title('Relative Error VS. Normalized Fiedler Number')
+p.ylabel('Relative Error')
+p.xlabel('Normalized Fiedler Number')
 p.scatter([fnums[i]/lengths[i] for i in range(len(lengths))],errors)
 print(pearsonr([fnums[i]/lengths[i] for i in range(len(lengths))],errors)[0])
 p.show()
-
