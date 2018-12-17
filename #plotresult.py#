@@ -11,7 +11,7 @@ for line in f:
     fnums.append(float(parts[2]))
     errors.append(abs(float(parts[3])-float(parts[4]))/int(parts[1]))
 
-print(sum(errors)/len(errors))
+p.
 p.scatter(lengths,errors)
 print(pearsonr(lengths,errors)[0])
 p.show()
