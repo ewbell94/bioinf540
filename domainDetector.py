@@ -70,7 +70,7 @@ def giniIndex(x):
 
 basegini=giniIndex([signvec])
 ginis=[giniIndex([signvec[:i],signvec[i:]]) for i in range(1,len(A)-1)]
-print(len(A),fnum,ginis.index(min(ginis))+1)
+print("(%d, %f, %d)"%(len(A),fnum,ginis.index(min(ginis))+1))
 '''
 smoothing=30
 change=[False for i in range(len(A))]
